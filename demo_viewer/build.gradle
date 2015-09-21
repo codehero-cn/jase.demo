@@ -1,0 +1,26 @@
+apply plugin: 'java'
+version=0.2  //build/libs/*.jar  jar包会带上版本号
+
+jar{
+    manifest{
+        attributes 'Main-Class':  'org.crazyit.viewer.Main'
+    }
+}
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+//指定java编译器版本
+sourceCompatibility=1.8  //版本要与环境变量中JAVA_HOME的版本一致,否则 警告: [options] 未与 -source 1.7 一起设置引导类路径
+targetCompatibility=1.8
+
+repositories {
+    jcenter()
+    mavenCentral()    //配置对Maven Central2仓库http://repol.maven.org/maven2访问的快捷方式
+
+}
+
+
+dependencies {
+    compile 'log4j:log4j:1.2.17'   //顺序是group,name,version
+    testCompile 'junit:junit:4.11'
+}

@@ -1,0 +1,38 @@
+apply plugin: 'java'
+version=0.2  //build/libs/*.jar  jar包会带上版本号
+jar{
+    manifest{
+        attributes 'Main-Class':  'HelloWorld'
+    }
+}
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+//指定java编译器版本
+sourceCompatibility=1.8  //版本要与环境变量中JAVA_HOME的版本一致,否则 警告: [options] 未与 -source 1.7 一起设置引导类路径
+targetCompatibility=1.8
+
+repositories {
+    jcenter()
+    mavenCentral()    //配置对Maven Central2仓库http://repol.maven.org/maven2访问的快捷方式
+
+}
+//源码位置设置 
+sourceSets{
+    main{
+        java{
+            srcDirs = ['src/main/java','srcset/main/java'] //设置了sourceSets则原来默认项目结构失效，也要设置在这里
+        }
+    }
+    test{
+        java{
+            srcDirs=['src/main/java','srcset/main/test']
+        }
+    }
+}
+
+dependencies {
+    compile 'log4j:log4j:1.2.17'   //顺序是group,name,version
+    compile 'org.dom4j:com.springsource.org.dom4j:1.6.1'
+    testCompile 'junit:junit:4.11'
+}
